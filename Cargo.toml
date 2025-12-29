@@ -1,0 +1,9 @@
+[package]
+name = "harmonium-in-mac"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+booklid-rust = { git = "https://github.com/chintan-27/booklid-rust", version = "1.0.0" }
+futures-util = "0.3.31"
+tokio = "1.48.0"
