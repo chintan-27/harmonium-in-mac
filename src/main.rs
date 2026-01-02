@@ -1,13 +1,27 @@
-use booklid_rust::open;
-use futures_util::StreamExt;
+mod app;
 
-#[tokio::main]
-async fn main() -> booklid_rust::Result<()> {
-    let dev = open(60.0).await?;
-    let mut stream = dev.subscribe();
-    println!("source={:?}", dev.info().source);
-    while let Some(s) = stream.next().await {
-        println!("{:6.2}  [{:?}]", s.angle_deg, s.source);
+fn main() -> eframe::Result<()> {
+    let options = eframe::NativeOptions::default();
+
+    eframe::run_native(
+        "Harmonium",
+        options,
+        Box::new(|_cc| {
+            // Create our app component here
+            let harmonium = app::HarmoniumApp::new();
+
+            // eframe expects something that implements eframe::App
+            Ok(Box::new(EguiAppWrapper { inner: harmonium }))
+        }),
+    )
+}
+
+struct EguiAppWrapper {
+    inner: app::HarmoniumApp,
+}
+
+impl eframe::App for EguiAppWrapper {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        self.inner.ui(ctx);
     }
-    Ok(())
 }
