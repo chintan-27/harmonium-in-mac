@@ -10,8 +10,6 @@ to read real-time **screen hinge angle** and convert it into expressive musical 
 
 ## Screenshot
 
-> Replace the image filename with your own.
-
 ![Harmonium UI](./screenshot.png)
 
 ---
